@@ -5,7 +5,7 @@ FROM openjdk:21-jdk-slim
 WORKDIR /tmp
 
 # 3. JAR 파일을 컨테이너 내부로 복사
-COPY eureka-0.0.1-SNAPSHOT.jar app.jar
+COPY build/libs/eureka-0.0.1-SNAPSHOT.jar app.jar
 
 # 4. 컨테이너 실행 시 JAR 파일 실행
 CMD ["java", "-jar", "app.jar"]
