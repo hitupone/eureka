@@ -5,7 +5,7 @@ pipeline {
         IMAGE_NAME = "group1-team2-eureka-app"
         IMAGE_TAG = "latest"
         NAMESPACE = "group1-team2"
-	JAVA_HOME = "/jdk-21.0.5"
+	JAVA_HOME = "/usr/local/java21"
 	PATH = "${JAVA_HOME}/bin:$PATH"
     }
     stages {
@@ -42,11 +42,19 @@ pipeline {
                 }
             }
         }
-        stage('Deploy and Service to Kubernetes') {
+        stage('Deploy to Kubernetes') {
             steps {
                 script {
                     // Kubernetes Deployment and Service 생성 및 적용 (1일차 교육때 사용한 deploy & service 생성 yaml 파일 등록하여 사용)
-                    sh "kubectl apply -f ./eureka-deployment.yaml -n ${NAMESPACE}"
+                    sh "kubectl apply -f ./yaml/eureka-deployment.yaml -n ${NAMESPACE}"
+                }
+            }
+        }
+        stage('Service to Kubernetes') {
+            steps {
+                script {
+                    // Kubernetes Deployment and Service 생성 및 적용 (1일차 교육때 사용한 deploy & service 생성 yaml 파일 등록하여 사용)
+                    sh "kubectl apply -f ./yaml/eureka-service.yaml -n ${NAMESPACE}"
                 }
             }
         }
